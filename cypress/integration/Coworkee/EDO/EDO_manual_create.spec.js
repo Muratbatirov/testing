@@ -50,46 +50,9 @@ describe('Tab_Funksional', function () {
         
            
     });
-    it('open inbox tab', function () {
 
-      cy.get('.top-menu-container-item').eq(1).click()
-      cy.url().should('include', 'inbox')
-     // cy.get('[data-cy=top_menu_container]').find('h2').contains('Входящие')
-  
-    //    cy.getGridByTestId('desktop_grid').as('grid')
-    //    .invoke('getStore').wait(3000)
-		// .invoke('getCount') 
-    // .then((val) => {
-    //   console.log(val)
-    //   const chekvalue=(i,value)=>{
-       
-    //         if ( value ) {
-    //           cy.getGridByTestId('desktop_grid').selectGridRowByIndex(i).wait(3000).getCellHtmlElByColumnKey('DocumentContragentName').contains('MICROS DEVELOPMENT XK');
-    //            // chekvalue(i+1,value-1);
-    //         }
-    //     } 
-    //     chekvalue(1,val)
-    // })
-        
-    });
-    it('open outgoing tab', function () {
 
-      cy.get('.top-menu-container-item').eq(2).click()
-      cy.url().should('include', 'outgoing')
-     // cy.get('[data-cy=top_menu_container]').find('h2').contains('Исходящие')
-  
-   
-        
-    });
-    it('open draft tab', function () {
-
-      cy.get('.top-menu-container-item').eq(3).click()
-      cy.url().should('include', 'draft')
-      
-   
-        
-    });
-    it('create document', function () {
+    it('create document', { scrollBehavior: false}, function () {
       cy.get('[data-cy=desktop_document_create_button]').find('button').click()
       
       //cy.getButtonByTestId('desktop_document_create_button').clickButton()
@@ -103,11 +66,30 @@ describe('Tab_Funksional', function () {
      cy.get('[data-cy=desktop_contragent_tin]').find('input').type('307882489')
      cy.wait(3000)
      cy.get('[data-cy=desktop_status_title]').click()
-     cy.getGridByTestId('desktop_product_grid')
-     .invoke('editRecordByIndexAndCellKeyValue', 0 , 'name', 'testCy' )
-     cy.wait(1000)
+     cy.getGridByTestId('desktop_product_grid').as('gridprod')
+    //  cy.get('@gridprod').invoke('getColumns').then((arr)=>{
+    //   console.log(arr[1].getCell())
+
+    //  })desktop_product_IKPU_cell
+    cy.get('@gridprod').invoke('getEl').its('dom').find('.x-gridcell').eq(1).click()
+     cy.get('[data-cy=desktop_productGrid_IKPU_select]').find('.x-expandtrigger').click()
+     cy.get('span').contains('04819001007000000').click()
+      cy.get('@gridprod').invoke('editRecordByIndexAndCellKeyValue', 0 , 'name', 'testProduct' )
+      cy.get('@gridprod').invoke('getEl').its('dom').find('.x-gridcell').eq(4).click()
+      cy.get('[data-cy=desktop_productGrid_unit_select]').find('.x-expandtrigger').click()
+     
+      cy.get('span').contains('штук').click()
+      cy.get('@gridprod').invoke('editRecordByIndexAndCellKeyValue', 0 , 'price', 1)
+      cy.get('@gridprod').invoke('editRecordByIndexAndCellKeyValue', 0 , 'amount', 1)
+      cy.get('@gridprod').invoke('getEl').its('dom').find('.x-gridcell').eq(10).click()
+      cy.get('@gridprod').invoke('getEl').its('dom').find('.x-gridcell').eq(10).click()
+      cy.get('span').contains('15%').click()
+
+    // cy.get('@gridprod').invoke('editRecordByIndexAndCellKeyValue', 0 , 'vat_total_sum', 1 )
+   cy.wait(3000)
      cy.get('[data-cy=desktop_save_button]').find('button').click()
-     cy.get('[data-cy=desktop_status_title]').contains('Черновик')
+     cy.wait(3000)
+    //  cy.get('[data-cy=desktop_status_title]').contains('Черновик')
      //.editRecordByIndexAndCellKeyValue()
      
   //   cy.getComboboxByTestId('desktop_contragent_tin').selectComboboxItemByIndex(0)desktop_save_button

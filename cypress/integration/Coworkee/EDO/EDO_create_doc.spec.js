@@ -74,7 +74,7 @@ describe('Tab_Funksional', function () {
     cy.get('.x-button-gridcell', { scrollBehavior: false}).click()
     cy.get('[data-cy=desktop_choose_products_button]', { force: true }).dblclick()
   
-    cy.wait(2000)
+    cy.wait(4000)
     cy.get('[data-cy=products_grid]')
 
     .find('.x-gridrow').eq(7).dblclick()
