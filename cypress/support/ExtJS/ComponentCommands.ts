@@ -30,5 +30,9 @@ Cypress.Commands.add('clickComponent', { prevSubject: true }, (component: Compon
 		.invoke('click')
 		.wrap(component)
 })
+Cypress.Commands.add('getComp', { prevSubject: true }, (component: Component<any>) => {
+	return cy.wrap(component)
+		
+})
 
 export {}

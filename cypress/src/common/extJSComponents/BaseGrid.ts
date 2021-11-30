@@ -42,7 +42,7 @@ export class Grid<T extends ExtJS.Grid> extends Component<T> {
 	 * @param columnKey
 	 */
 	getCellDOMByColumnKey(columnKey: string): HTMLElement {
-		const selectedRecord = this.getSelection()[0];
+		const selectedRecord = this.getSelection();
 
 		if(selectedRecord === undefined) {
 			throw Error('You have to select one row before using this command');

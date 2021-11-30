@@ -25,5 +25,13 @@ module.exports = (on, config) => {
 			password: process.env.APP_PASSWORD,
 		}
 	}
+	on('task', {
+		nabor() {
+			var ks = require('node-key-sender');
+			ks.sendKeys(['1', '0', '0','5','3','5','6','1','enter']);
+	
+		  return null
+		},
+	  })
 	return config
 }

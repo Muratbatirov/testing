@@ -59,6 +59,27 @@ Cypress.Commands.add('treeGridDeleteRecordByKeyValue', { prevSubject: true },(tr
 				})
 		})
 })
+Cypress.Commands.add('dblclickSelectedRowTree', { prevSubject: true },(grid: TreeGrid) => {
+	return cy.wrap(grid)
+		.invoke('getDom')
+		.then($dom => {
+			cy.waitUntil(() => grid.getExtJSCmp().getSelected().length > 0, { timeout: 20000})
+				.waitUntil(() => grid.getExtJSCmp().getStore().indexOf(grid.getExtJSCmp().getSelected().items[0]) >= 0, { timeout: 20000})
+				.then(() => {
+					let rowIndex = grid.getExtJSCmp().getStore().indexOf(grid.getExtJSCmp().getSelected().items[0]);
+					cy.wrap($dom)
+						.find(`[data-recordindex="${rowIndex}"]`)
+						.dblclick()
+				})
+		}).wrap(grid)
+})
+Cypress.Commands.add('selectGridRowByIndexTree', { prevSubject: true },(grid: TreeGrid, rowIndex: number, keepExisting?:boolean) => {
+	return cy.wrap(grid)
+		.invoke('selectRecordByIndex',rowIndex, keepExisting)
+		.then(() => {
+			return cy.wait(500).wrap(grid)
+		})
+})
 
 Cypress.Commands.add('clickYesOrNoColumnRowByIndex', { prevSubject: true },(treeGrid: TreeGrid, rowIndex: number, btnYesOrNoTestId: string) => {
 	const recordInternalId = treeGrid.getStore<ExtJS.TreePanel>().getAt(rowIndex)

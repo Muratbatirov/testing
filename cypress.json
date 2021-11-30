@@ -5,10 +5,12 @@
   "blockHosts": [
     "*google-analytics.com"
   ],
-  "defaultCommandTimeout": 20000,
-  "requestTimeout": 20000,
+  "defaultCommandTimeout": 60000,
+  "requestTimeout": 60000,
   "responseTimeout": 120000,
   "pageLoadTimeout": 120000,
   "viewportHeight": 768,
-  "viewportWidth": 1366
+  "viewportWidth": 1366,
+  "video":true
+  
 }
